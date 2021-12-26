@@ -264,6 +264,69 @@ Matrix<T> Matrix<T>::transpose() const {
     return trans;
 }
 
+// Обратная матрица
+template<class T>
+Matrix<T> Matrix<T>::reverse() const {
+    if (m == n) {
+        T det = determinant();
+        if (det) {
+            Matrix<T> M(m, n);
+            for (int i = 0; i < m; i++)
+                for (int j = 0; j < n; j++)
+                    M[i][j] = minor(i, j) * ((i + j) % 2 ? -1 : 1);
+            return M.transpose();
+        }
+        else throw MatrixException();
+    }
+    else throw MatrixException();
+}
+
+// Определитель
+template<class T>
+T Matrix<T>::determinant() const {
+    if (m == n) {
+        T det = 0;
+        if (m == 1) return ptr[0][0];
+        
+        if (m == 2)
+            return ptr[0][0] * ptr[1][1] - ptr[0][1] * ptr[1][0];
+        
+        for (int i = 0; i < m; i++) {
+            T temp_det = ptr[i][0] * minor(i, 0);
+            temp_det *= (i % 2 ? -1 : 1);
+            det += temp_det;
+        }
+        
+        return det;
+    }
+    else throw MatrixException();
+}
+
+// Минор
+template<class T>
+T Matrix<T>::minor(int x, int y) const {
+    if (m == n && m > 1) {
+        if (m == 2)
+            for (int i = 0; i < m; i++)
+                if (i != x)
+                    for (int j = 0; j < m; j++)
+                        if (j != y) return ptr[i][j];
+            
+        Matrix<T> M(m - 1, n - 1);
+        for (int i = 0, x_offset = 0; i < m; i++)
+            if (i != x) {
+                x_offset = i > x;
+                for (int j = 0, y_offset = 0; j < m; j++) {
+                    y_offset = j > y;
+                    if (j != y) M[i - x_offset][j - y_offset] = ptr[i][j];
+                }
+            }
+
+        return M.determinant();
+    }
+    else throw MatrixException();
+}
+
 // ************************************** //
 
 // -------------------------------------- //

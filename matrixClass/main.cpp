@@ -21,6 +21,14 @@ int main(int argc, const char * argv[]) {
     Matrix<int> matr2(3, 3);
     Matrix<int> matr3(3, 3);
     
+    Matrix<double> matrDouble(2, 2);
+    matrDouble[0][0] = 2;
+    matrDouble[0][1] = 3;
+    
+    matrDouble[1][0] = -1;
+    matrDouble[1][1] = 1;
+
+    
     // Заполнение рандомными значениями matr и matr2
     for(int i = 0; i < matr.getColumns(); i++)
     {
@@ -46,7 +54,7 @@ int main(int argc, const char * argv[]) {
     
     cout << "Transpose" << endl;
     matr = matr.transpose();
-    cout <<  matr << endl;
+    cout <<  matrDouble.reverse() << endl;
     
     return 0;
 }

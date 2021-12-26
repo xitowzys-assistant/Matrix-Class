@@ -102,14 +102,14 @@ public:
     T getElem(const unsigned int n, const unsigned int m) const;
     // Вставка значений
     void insert(T value, const unsigned int n, const unsigned int m) const;
-    
-//    T determinant() const;
-//    Matrix& reverse() const;
-    
+    // Минор
+    T minor(int x, int y) const;
+    // Определитель
+    T determinant() const;
+    // Обратная матрица
+    Matrix reverse() const;
     // Транспонирования
     Matrix transpose() const;
-    
-//    Matrix& pow(const int power) const;
     
     // ************************************** //
 
