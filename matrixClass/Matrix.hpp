@@ -17,16 +17,20 @@ template <class T>
 class Matrix
 {
 private:
-    // -------------------------------------- //
+    // ************************************** //
     
     // Матрица
     T** ptr;
     // Количество столбцов(n) строк(m)
     unsigned int n, m;
     
-    // -------------------------------------- //
+    // ************************************** //
     
 public:
+    // ************************************** //
+
+    // -------------------------------------- //
+    //              Конструкторы              //
     // -------------------------------------- //
     
     // Конструктор
@@ -38,20 +42,10 @@ public:
     // Деструктор
     ~Matrix();
     
+    // ************************************** //
+
     // -------------------------------------- //
-    
-    // Количество столбцов матрицы (n)
-    unsigned int getColumns() const;
-    // Количество строк матрица (m)
-    unsigned int getRows() const;
-    // Получить элемент
-    T getElem(const unsigned int n, const unsigned int m) const;
-    
-    // -------------------------------------- //
-    
-    // Вставка значений
-    void insert(T value, const unsigned int n, const unsigned int m) const;
-    
+    //          Перегрузка операторов         //
     // -------------------------------------- //
     
     // Присваивание
@@ -73,32 +67,59 @@ public:
     Matrix& operator *=(const Matrix& m);
     Matrix& operator *(const Matrix& m);
     
-    T determinant() const;
-    Matrix& reverse() const;
-    Matrix& transpose() const;
-    Matrix& pow(const int power) const;
+    // Индексация
+    T* operator[](int);
     
+    // Сложение матриц
+    template <class Type>
+    friend Matrix operator+(const Matrix &d1, const Matrix &d2);
+
+    // Сложение матриц +=
+    friend Matrix& operator+=(Matrix& left, const Matrix& right);
+
+    // Вычитание матриц
+    template <class Type>
+    friend Matrix operator-(const Matrix &d1, const Matrix &d2);
+
+    // Умножение матриц
+    template <class Type>
+    friend Matrix operator*(const Matrix &d1, const Matrix &d2);
+    
+    // true/false
+    operator bool() const { return ptr != nullptr; }
+    
+    // ************************************** //
+
+    // -------------------------------------- //
+    //          Операции над матрицой         //
+    // -------------------------------------- //
+    
+    // Количество столбцов матрицы (n)
+    unsigned int getColumns() const;
+    // Количество строк матрица (m)
+    unsigned int getRows() const;
+    // Получить элемент
+    T getElem(const unsigned int n, const unsigned int m) const;
+    // Вставка значений
+    void insert(T value, const unsigned int n, const unsigned int m) const;
+    
+//    T determinant() const;
+//    Matrix& reverse() const;
+    
+    // Транспонирования
+    Matrix transpose() const;
+    
+//    Matrix& pow(const int power) const;
+    
+    // ************************************** //
+
+    // -------------------------------------- //
+    //         Перегрузка ввод/вывода         //
     // -------------------------------------- //
     
     // Вывод матрицы
     template <class Type>
     friend std::ostream& operator <<(std::ostream& out,const Matrix<Type>& matr);
-    
-//
-//    // Сложение матриц
-//    template <class Type>
-//    friend Matrix operator+(const Matrix &d1, const Matrix &d2);
-//
-//    // Сложение матриц +=
-//    friend Matrix& operator+=(Matrix& left, const Matrix& right);
-//
-//    // Вычитание матриц
-//    template <class Type>
-//    friend Matrix operator-(const Matrix &d1, const Matrix &d2);
-//
-//    // Умножение матриц
-//    template <class Type>
-//    friend Matrix operator*(const Matrix &d1, const Matrix &d2);
 };
 
 

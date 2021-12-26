@@ -6,6 +6,10 @@
 //
 #include "Matrix.hpp"
 
+// ************************************** //
+
+// -------------------------------------- //
+//              Конструкторы              //
 // -------------------------------------- //
 
 // Конструктор
@@ -59,38 +63,10 @@ Matrix<T>::~Matrix()
     delete[] ptr;
 }
 
-// -------------------------------------- //
-
-// Количество столбцов матрицы
-template <class T>
-unsigned int Matrix<T>::getColumns() const
-{
-    return n;
-}
-
-// Количество строк матрицы
-template <class T>
-unsigned int Matrix<T>::getRows() const
-{
-    return m;
-}
-
-// Получить элемент
-template <class T>
-T Matrix<T>::getElem(const unsigned int n,const unsigned int m) const
-{
-    return ptr[n][m];
-}
+// ************************************** //
 
 // -------------------------------------- //
-
-// Вставка значений
-template <class T>
-void Matrix<T>::insert(T value, const unsigned int n, const unsigned int m) const
-{
-    ptr[n][m] = value;
-}
-
+//          Перегрузка операторов         //
 // -------------------------------------- //
 
 // Присваивание
@@ -207,7 +183,6 @@ Matrix<T>& Matrix<T>::operator *=(const Matrix<T> &matrix)
                 }
                 
                 results[i][j] = temps;
-                std::cout << results[i][j] << std::endl;
                 temps = 0;
             }
         }
@@ -238,7 +213,61 @@ Matrix<T>& Matrix<T>::operator *(const Matrix<T> &matrix)
     return *this *= matrix;
 }
 
+// Индексация
+template<class T>
+T* Matrix<T>::operator[](int index) {
+    return ptr[index];
+}
 
+// ************************************** //
+
+// -------------------------------------- //
+//          Операции над матрицой         //
+// -------------------------------------- //
+
+// Количество столбцов матрицы
+template <class T>
+unsigned int Matrix<T>::getColumns() const
+{
+    return n;
+}
+
+// Количество строк матрицы
+template <class T>
+unsigned int Matrix<T>::getRows() const
+{
+    return m;
+}
+
+// Получить элемент
+template <class T>
+T Matrix<T>::getElem(const unsigned int n,const unsigned int m) const
+{
+    return ptr[n][m];
+}
+
+// Вставка значений
+template <class T>
+void Matrix<T>::insert(T value, const unsigned int n, const unsigned int m) const
+{
+    ptr[n][m] = value;
+}
+
+// Транспонирования
+template<class T>
+Matrix<T> Matrix<T>::transpose() const {
+    Matrix<T> trans(n, m);
+    for (int i = 0; i < m; i++)
+        for (int j = 0; j < n; j++)
+            trans[j][i] = ptr[i][j];
+    
+    return trans;
+}
+
+// ************************************** //
+
+// -------------------------------------- //
+//         Перегрузка ввод/вывода         //
 // -------------------------------------- //
 
 // Вывод матрицы

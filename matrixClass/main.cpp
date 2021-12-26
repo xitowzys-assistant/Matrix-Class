@@ -21,8 +21,6 @@ int main(int argc, const char * argv[]) {
     Matrix<int> matr2(3, 3);
     Matrix<int> matr3(3, 3);
     
-
-    
     // Заполнение рандомными значениями matr и matr2
     for(int i = 0; i < matr.getColumns(); i++)
     {
@@ -31,8 +29,8 @@ int main(int argc, const char * argv[]) {
             matr2.insert(2 + i, i, j);
         }
     }
-//
-//    // Тестирование
+
+    // Тестирование
     cout << "matr" << endl;
     cout << matr;
     cout << endl;
@@ -43,24 +41,12 @@ int main(int argc, const char * argv[]) {
     
     cout << "matr2 +=" << endl;
     matr = matr * matr2;
-//    matr2 + 36;
     cout << matr;
     cout << endl;
     
-//    cout << "matr3 = matr2 + matr" << endl;
-//    matr3 = matr2 + matr;
-//    cout << matr3;
-//    cout << endl;
-////    
-//    cout << "matr3 = matr2 - matr" << endl;
-//    matr3 = matr2 - matr;
-//    cout << matr3;
-//    cout << endl;
-//    
-//    cout << "matr3 = matr2 * matr" << endl;
-//    matr3 = matr2 * matr;
-//    cout << matr3;
-//    cout << endl;
+    cout << "Transpose" << endl;
+    matr = matr.transpose();
+    cout <<  matr << endl;
     
     return 0;
 }
